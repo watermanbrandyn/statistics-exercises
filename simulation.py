@@ -64,11 +64,13 @@ n_trials = n_rows = 100_000
 n_student = 50
 corrupt = pd.DataFrame(np.random.randint(0, 251, size = n_trials * n_student).reshape(n_trials, n_student))
 fails = corrupt.apply(lambda row: 250 in row.values, axis=1)
-fails.mean()
+no_issue = 1 - fails.mean()
+no_issue
 n_student = 100
 corrupt = pd.DataFrame(np.random.randint(0, 251, size = n_trials * n_student).reshape(n_trials, n_student))
 fails = corrupt.apply(lambda row: 250 in row.values, axis=1)
-fails.mean()
+no_issue = 1 - fails.mean()
+no_issue
 # What is the probability that we observe an installation issue within the 
 # first 150 students that download anaconda?
 n_student = 150
@@ -85,10 +87,33 @@ no_one
 #7. There's a 70% chance on any given day that there will be at least one food 
 # truck at Travis Park. However, you haven't seen a food truck there in 3 days. 
 # How unlikely is this?
-
+n_trials = nrows = 100_000
+n_days = ncols = 3
+at_least_one = np.random.choice([0, 1], size = n_trials * n_days, p=[.3, .7]).reshape(nrows, ncols)
+none_in_three = at_least_one.sum(axis=1) == 0
+none_in_three.mean()
 
 # How likely is it that a food truck will show up sometime this week?
+n_days = ncols = 7
+at_least_one = np.random.choice([0, 1], size = n_trials * n_days, p=[.3, .7]).reshape(nrows, ncols)
+at_least_once = at_least_one.sum(axis=1) > 0
+at_least_once.mean()
 
 #8. If 23 people are in the same room, what are the odds that two of them 
 # share a birthday? What if it's 20 people? 40?
-
+n_trials = nrows = 100_000
+n_people = ncols = 23
+birthdays = pd.DataFrame(np.random.randint(1, 366, size= n_trials * n_people).reshape(n_trials, n_people))
+uniques = birthdays.nunique(axis=1)
+same = (uniques < n_people).mean()
+same
+n_people = 20
+birthdays = pd.DataFrame(np.random.randint(1, 366, size= n_trials * n_people).reshape(n_trials, n_people))
+uniques = birthdays.nunique(axis=1)
+same = (uniques < n_people).mean()
+same
+n_people = 40
+birthdays = pd.DataFrame(np.random.randint(1, 366, size= n_trials * n_people).reshape(n_trials, n_people))
+uniques = birthdays.nunique(axis=1)
+same = (uniques < n_people).mean()
+same
