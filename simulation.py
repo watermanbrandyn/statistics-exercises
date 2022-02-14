@@ -40,6 +40,8 @@ both_ds.mean()
 n_trials = n_rows = 100_000
 n_days = 4 #Monday, Tuesday, Wednesday, Thursday
 tarts = pd.DataFrame(np.random.normal(3, 1.5, n_trials * n_days).reshape(n_trials, n_days))
+# tarts = np.random.normal(3, 1.5, size=(100_000, 4)).round()
+# tarts = np.where(purhcases < 0, 0, purchases)
 tarts_left = 17 - tarts.sum(axis=1) > 0
 tarts_left.mean()
 
